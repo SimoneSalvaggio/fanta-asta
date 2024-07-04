@@ -1,0 +1,108 @@
+<div>
+  <div *ngIf="showFilters">
+    <input type="file" name="file" class="custom-file-input" id="inputGroupFile" required (change)="handleImport($event)"
+  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+  <button class="btn btn-info"(click)="showModuli = !showModuli">MODULI</button>
+  <button class="btn btn-info" (click)="showCron()">CRONOLOGIA</button>
+  <button class="btn btn-info" (click)="setSecureOnOff()">Cambia controllo di sicurezza</button> {{ secure ? 'ATTIVO' : 'DISATTIVATO (fai attenzione)'}}
+  <button class="btn btn-warning" (click)="resetAllData()" *ngIf="!secure">RESET ALL</button>
+  <input type="test" *ngIf="!secure" [(ngModel)]="idToSearch"> <button *ngIf="!secure" (click)="searchPlayerId()">SearchId</button>
+</div>
+  <div *ngIf="showModuli">
+    <img src="https://content.fantacalcio.it/web/img/medium/fb125077-b00a-4587-9139-be740128a4e4.jpg" alt="" srcset="">
+  </div>
+  <button mat-raised-button color="purple" (click)="toggleShowFilters()">FILTRI</button>secureButtons
+  <button mat-raised-button color="purple" (click)="secureButtons = !secureButtons">Abilitazione rimozione giocatori</button>
+  <div class="" *ngIf="randomId !== '100000'">
+    <div style="display: flex; text-align: center; width: 100%;">
+      <div style="width: 25vw;">
+        <img width="150" src="https://content.fantacalcio.it/web/campioncini/card/{{(playersList[+randomId].nome.split(' ').join('-')).toUpperCase()}}.png?v=56" alt="">
+      </div>
+      <div style="width: 25vw;">
+        <h3 class="">Rimasti: {{playersList.length}} - Scartati: {{removedList.length}}</h3>
+        <h3 class="">{{playersList[+randomId].nome}}</h3>
+        <h3 class="">{{playersList[+randomId].squadra}}</h3>
+        <h3 class="">{{playersList[+randomId].mantra}}</h3>
+      </div>
+      <div style="width: 25vw;">
+        <h3><button class="btn btn-warning" (click)="scarta()">SCARTA</button></h3>
+        <div class="row">
+          <div class="col mr-1"><button class="btn btn-info" (click)="valueOffer = valueOffer-1">-1</button></div>
+          <div class="col mr-1"><button class="btn btn-info" (click)="valueOffer = valueOffer-5">-5</button></div>
+          <div class="col mr-1"><button class="btn btn-info" (click)="valueOffer = valueOffer-10">-10</button></div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-6" style="text-align: center; border-radius: 50%; color: white; background-color: rgb(4, 4, 67);">
+            <h1>{{valueOffer}}</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mr-1"><button class="btn btn-info" (click)="valueOffer = valueOffer+1">+1</button></div>
+          <div class="col mr-1"><button class="btn btn-info" (click)="valueOffer = valueOffer+5">+5</button></div>
+          <div class="col mr-1"><button class="btn btn-info" (click)="valueOffer = valueOffer+10">+10</button></div>
+        </div>
+      </div>
+      <div style="width: 25vw;">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(0)">PAUL</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(5)">UMBE</button>
+              </div>
+            </div>
+            <div class="row justify-content-between mt-1">
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(1)">FOCA</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(6)">CAMPING</button>
+              </div>
+            </div>
+            <div class="row justify-content-between mt-1">
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(2)">MAURI</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(7)">GUALA</button>
+              </div>
+            </div>
+            <div class="row justify-content-between mt-1">
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(3)">OMAR</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(8)">SPADA</button>
+              </div>
+            </div>
+            <div class="row justify-content-between mt-1">
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(4)">AGGIO</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-primary" (click)="assegna(9)">BERRA</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div *ngIf="cronVisible">
+      SCARTATI:
+      <div *ngFor="let elem of removedList.reverse()">{{elem.nome}} <button class="btn btn-mini btn-warning" (click)="restore(elem)">RIPRISTINA</button></div>
+    </div>
+  </div>
+  <div style="display: flex;">
+    <div class="team-container" style="width: 9vw; margin: 0 0.5vw;" *ngFor="let team of fantaTeams; let i = index" [ngClass]="i % 2 == 1 ? 'bg-grey' : 'bg-blue'">
+      <div class="team-details">
+        <div class="row"><div class="col-12"> <span style="font-weight: 600; font-size: medium;">{{team.name}}</span> ({{team.players.length}}/25)</div></div>
+        <div class="row justify-content-between" *ngFor="let p of team.players; let pi = index"><div class="col-8">{{p.nome}}</div><div class="col-4">
+          <button style="border: none; border-radius: 20%; color: white; background-color: red;" (click)="removePlayerFromTeam(i,pi)" *ngIf="!secureButtons">X</button>{{p.costo}}</div> </div>
+      </div>
+      <div class="row mt-2 credits" style="margin-top: auto; margin-bottom: 0;"><div class="col-12">{{calculateCreditsUsed(team.players)}}/500</div></div>
+    </div>
+  </div>
+  <div class="container" *ngIf="randomId === '100000'">
+    <button class="btn btn-primary" (click)="extractNewFreePlayer()">INIZIA ASTA</button>
+  </div>
+</div>

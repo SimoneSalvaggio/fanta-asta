@@ -1,0 +1,30 @@
+<div style="height: 80vh;" class="container">
+  <div *ngIf="player">
+    <h2>{{player.nome}}</h2>
+    <h3>Squadra: {{player.squadra}}</h3>
+    <h3>Ruolo classic: {{player.ruolo}}</h3>
+    <h3>Ruoli mantra: {{player.mantra}}</h3>
+    <h3>Quota attuale: {{player.qta}}</h3>
+    <h3>Quota iniziale: {{player.qti}}</h3>
+    <h3>Valore di mercato mantra: {{player.fvmm}}</h3>
+  </div>
+  <div class="column" *ngIf="roles">
+    <div class="info" style="margin-bottom: 10px;">Tot: {{count}}</div>
+    <div class="info">Por: {{roles.Por}}</div>
+    <div class="info">Dc: {{roles.Dc}}</div>
+    <div class="info">Dd: {{roles.Dd}}</div>
+    <div class="info">Ds: {{roles.Ds}}</div>
+    <div class="info">M: {{roles.M}}</div>
+    <div class="info">C: {{roles.C}}</div>
+    <div class="info">E: {{roles.E}}</div>
+    <div class="info">W: {{roles.W}}</div>
+    <div class="info">T: {{roles.T}}</div>
+    <div class="info">A: {{roles.A}}</div>
+    <div class="info">Pc: {{roles.Pc}}</div>
+  </div>
+  <div class="column" *ngIf="teams">
+    <div *ngFor="let team of teams">
+      <div class="info">{{team.name}} : {{team.value}}</div>
+    </div>
+  </div>
+</div>

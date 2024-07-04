@@ -1,0 +1,18 @@
+<!-- <div style="height: 80vh;">
+  <div>
+    rimasti: {{list.length}}
+  </div>
+  <div *ngFor="let elem of list" style="display: flex;">
+    <span style="padding: 9px;">
+      <span *ngIf="titolarissimi.includes(elem.nome)">X - </span>
+      {{elem.nome}} - {{elem.squadra}} - {{elem.mantra}} - <b>{{elem.qta}}</b> - <i>{{elem.fvmm}}</i>
+    </span>
+    <span style="margin-left: auto; margin-right: 0px;">
+      <button mat-mini-fab color="primary" (click)="emitData(elem, 3)">&check;</button>
+      <button mat-mini-fab color="warn" (click)="emitData(elem, 1)">&cross;</button>
+    </span>
+  </div>
+</div> -->
+<div style="height: 60vh;">
+  <div *ngFor="let p of list">{{p.nome}}</div>
+</div>
